@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Đếm ngược Tết Dương Lịch 🎆</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(circle at top, #ff4d4d, #b30000);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            transform: scale(1.5);
+            /* tăng lên 1.2 – 1.4 tuỳ bạn */
+            transform-origin: center;
+            text-align: center;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.12);
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+        }
+
+        .year {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .box {
+            background: rgba(0, 0, 0, 0.25);
+            padding: 20px 10px;
+            border-radius: 15px;
+        }
+
+        .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .label {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            opacity: 0.85;
+        }
+
+        .footer {
+            margin-top: 25px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Ánh sáng trang trí */
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            filter: blur(100px);
+            animation: float 6s infinite alternate ease-in-out;
+        }
+
+        .glow.one {
+            top: -80px;
+            left: -80px;
+        }
+
+        .glow.two {
+            bottom: -100px;
+            right: -100px;
+            animation-delay: 3s;
+        }
+
+        .message {
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+        }
+
+        .message {
+            font-size: 3rem;
+            font-weight: 700;
+            /* ĐẬM */
+            letter-spacing: 1px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+            color: #fff;
+
+            /* Hiệu ứng nổi */
+            text-shadow:
+                0 0 10px rgba(255, 255, 255, 0.6),
+                0 0 20px rgba(255, 200, 200, 0.6),
+                0 0 40px rgba(255, 0, 0, 0.4);
+        }
+
+        .message.show {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) and (orientation: portrait) {
+            .container {
+                transform: scale(1);
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .year {
+                font-size: 1.1rem;
+            }
+
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .number {
+                font-size: 2.2rem;
+            }
+
+            .message {
+                font-size: 2.2rem;
+                padding: 0 10px;
+            }
+        }
+
+        @media (max-width: 900px) and (orientation: landscape) {
+
+            body {
+                overflow: hidden;
+            }
+
+            /* Ẩn toàn bộ layout cũ */
+            .container {
+                display: none;
+            }
+
+            /* ====== KHUNG CHÚC MỪNG ====== */
+            .message {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+                width: 92vw;
+                /* RẤT DÀI */
+                padding: 28px 32px;
+
+                font-size: 2.4rem;
+                /* TO */
+                font-weight: 800;
+                line-height: 1.2;
+
+                text-align: center;
+                color: #fff;
+
+                /* NỀN ĐỎ NHẠT – GIỐNG ẢNH */
+                background: rgba(255, 255, 255, 0.18);
+
+                /* BO GÓC LỚN */
+                border-radius: 28px;
+
+                /* BÓNG NHẸ – KHÔNG LỐ */
+                box-shadow:
+                    0 15px 30px rgba(0, 0, 0, 0.25);
+
+                /* GLOW NHẸ CHO CHỮ */
+                text-shadow:
+                    0 0 12px rgba(255, 255, 255, 0.8);
+
+                z-index: 9999;
+            }
+        }
+
+
+        @keyframes float {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(40px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .countdown {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="glow one"></div>
+    <div class="glow two"></div>
+
+    <div class="container">
+        <h1>🎆 Đếm ngược Tết Dương Lịch</h1>
+        <div class="year" id="yearText"></div>
+
+        <div class="countdown" id="countdown">
+            <div class="box">
+                <div class="number" id="days">0</div>
+                <div class="label">Ngày</div>
+            </div>
+            <div class="box">
+                <div class="number" id="hours">0</div>
+                <div class="label">Giờ</div>
+            </div>
+            <div class="box">
+                <div class="number" id="minutes">0</div>
+                <div class="label">Phút</div>
+            </div>
+            <div class="box">
+                <div class="number" id="seconds">0</div>
+                <div class="label">Giây</div>
+            </div>
+        </div>
+        <div id="messageBox" class="message" style="display:none;"></div>
+        <div class="footer">
+            Chúc mừng năm mới sắp đến 🎉
+        </div>
+
+    </div>
+
+    <script>
+        /* ================== THỜI GIAN ĐÍCH ================== */
+        /* Đổi ngày giờ tại đây */
+        const targetDate = new Date("2025-01-01T00:00:00").getTime();
+
+        /* ================== CÂU CHÚC ================== */
+        const messages = [
+            "🎉 Chúc mừng năm mới 2026 🎉",
+            "✨ An khang – Thịnh vượng ✨",
+            "💖 Sức khỏe – Hạnh phúc – Bình an 💖",
+            "🚀 Thành công trên mọi chặng đường 🚀"
+        ];
+
+        let msgIndex = 0;
+        let finished = false;
+
+        /* ================== DOM ================== */
+        const daysEl = document.getElementById("days");
+        const hoursEl = document.getElementById("hours");
+        const minutesEl = document.getElementById("minutes");
+        const secondsEl = document.getElementById("seconds");
+
+        const countdownEl = document.getElementById("countdown");
+        const titleEl = document.querySelector(".container h1");
+        const yearEl = document.getElementById("yearText");
+        const footerEl = document.querySelector(".footer");
+        const messageBox = document.getElementById("messageBox");
+
+        /* ================== COUNTDOWN ================== */
+        function updateCountdown() {
+            if (finished) return;
+
+            const now = Date.now();
+            const diff = targetDate - now;
+
+            /* ====== KHI HẾT COUNTDOWN ====== */
+            if (diff <= 0) {
+                finished = true;
+
+                // Ẩn toàn bộ countdown
+                countdownEl.style.display = "none";
+                titleEl.style.display = "none";
+                yearEl.style.display = "none";
+                footerEl.style.display = "none";
+
+                // Hiện câu chúc
+                messageBox.style.display = "block";
+                showMessage();
+                return;
+            }
+
+            /* ====== CẬP NHẬT SỐ ====== */
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / (1000 * 60)) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+
+            daysEl.textContent = days;
+            hoursEl.textContent = String(hours).padStart(2, "0");
+            minutesEl.textContent = String(minutes).padStart(2, "0");
+            secondsEl.textContent = String(seconds).padStart(2, "0");
+
+            setTimeout(updateCountdown, 1000);
+        }
+
+        /* ================== HIỆN TỪNG CÂU ================== */
+        function showMessage() {
+            if (msgIndex >= messages.length) return;
+
+            messageBox.textContent = messages[msgIndex];
+            messageBox.classList.add("show");
+
+            setTimeout(() => {
+                messageBox.classList.remove("show");
+                msgIndex++;
+                setTimeout(showMessage, 1000);
+            }, 2500);
+        }
+
+        /* ================== KHỞI CHẠY ================== */
+        updateCountdown();
+    </script>
+
+</body>
+
+</html>
