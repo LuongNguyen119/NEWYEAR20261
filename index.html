@@ -158,20 +158,15 @@
             }
         }
 
-        @media (max-width: 900px) and (orientation: landscape) {
+        /* ================= XOAY NGANG ================= */
+        @media (orientation: landscape) {
 
-            body {
-                overflow: hidden;
-            }
+            /* Countdown + glow vốn đã bị ẩn thì thôi */
 
-            /* Ẩn toàn bộ layout cũ */
-            .container {
-                display: none;
-            }
-
-            /* ====== KHUNG CHÚC MỪNG ====== */
-            .message {
+            /* ÉP HIỆN messageBox (đè inline style) */
+            #messageBox {
                 display: flex !important;
+                /* ⬅️ QUAN TRỌNG NHẤT */
                 align-items: center;
                 justify-content: center;
 
@@ -180,36 +175,30 @@
                 left: 50%;
                 transform: translate(-50%, -50%);
 
-                width: 92vw;
-                /* RẤT DÀI */
-                padding: 28px 32px;
+                width: 90vw;
+                max-width: 900px;
+                min-height: 90px;
+                padding: 24px 36px;
 
-                font-size: 2.4rem;
-                /* TO */
-                font-weight: 800;
-                line-height: 1.2;
-
-                text-align: center;
-                color: #fff;
-
-                /* NỀN ĐỎ NHẠT – GIỐNG ẢNH */
                 background: rgba(255, 255, 255, 0.18);
+                backdrop-filter: blur(8px);
 
-                /* BO GÓC LỚN */
-                border-radius: 28px;
+                border-radius: 30px;
 
-                /* BÓNG NHẸ – KHÔNG LỐ */
-                box-shadow:
-                    0 15px 30px rgba(0, 0, 0, 0.25);
+                font-size: clamp(1.6rem, 4vw, 2.4rem);
+                font-weight: 800;
+                color: #fff;
+                text-align: center;
+                white-space: nowrap;
 
-                /* GLOW NHẸ CHO CHỮ */
-                text-shadow:
-                    0 0 12px rgba(255, 255, 255, 0.8);
+                box-shadow: 0 18px 36px rgba(0, 0, 0, 0.35);
+                text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
 
+                opacity: 1 !important;
+                /* ⬅️ đề phòng animation */
                 z-index: 9999;
             }
         }
-
 
         @keyframes float {
             from {
@@ -344,6 +333,8 @@
 
         /* ================== KHỞI CHẠY ================== */
         updateCountdown();
+
+
     </script>
 
 </body>
